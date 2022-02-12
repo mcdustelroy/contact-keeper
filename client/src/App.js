@@ -9,7 +9,7 @@ import ContactState from './context/contact/ContactState'
 
 const App = () => {
   return (
-    // <ContactState>
+    <ContactState>
       <Router>
         <Fragment>
           <Navbar />
@@ -21,7 +21,7 @@ const App = () => {
           </div>
         </Fragment>
       </Router>
-    // </ContactState>
+    </ContactState>
   );
 }
 
