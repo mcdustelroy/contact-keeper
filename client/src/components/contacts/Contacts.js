@@ -10,9 +10,7 @@ function Contacts() {
     return (
         <Fragment>
             {contacts.map(contact => (
-                <h3>
-                    {contact.name}
-                </h3>
+                <ContactItem key={contact.id} contact={contact}/>
             ))}   
         </Fragment>
     )
