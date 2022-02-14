@@ -1,10 +1,8 @@
 import React, { useContext, useState } from 'react'
 import ContactContext from '../../context/contact/contactContext'
 
-
 const ContactForm = () => {
     const contactContext = useContext(ContactContext)
-    const { contacts } = contactContext;
 
     const [contact, setContact] = useState({
         name: '',
@@ -32,19 +30,23 @@ const ContactForm = () => {
     const onSubmit = (e) => {
         e.preventDefault();
         contactContext.addContact(contact);
-
-
+        setContact({
+            name: '',
+            email: '',
+            phone: '',
+            type: 'personal',
+        })
     }
 
     return (
         <form onSubmit={onSubmit}>
             <h2 className="text-primary">Add contact</h2>
-            <input placeholder='Name' name='name' value={ name } type='text'onChange={onChange}/>
-            <input placeholder='Email' name='email' value={email} type='email'onChange={onChange}/>
-            <input placeholder='Phone' name='phone' value={phone} type='text'onChange={onChange}/>
+            <input placeholder='Name' name='name' value={ name } type='text' onChange={onChange}/>
+            <input placeholder='Email' name='email' value={email} type='email' onChange={onChange}/>
+            <input placeholder='Phone' name='phone' value={phone} type='text' onChange={onChange}/>
             <h5>Contact Type</h5>
-            <input  name='type' value='personal' checked={ type === 'personal'} type='radio'/> Personal{' '}
-            <input  name='type' value='professional' checked={ type === 'professional'} type='radio'/>Professional
+            <input name='type' value='personal' checked={ type === 'personal'} type='radio' onChange={onChange} /> Personal{' '}
+            <input name='type' value='professional' checked={ type === 'professional'} type='radio' onChange={onChange} /> Professional
 
             <div>
                 <input type="submit" value="Add Contact" className="btn btn-primary btn-block" />
