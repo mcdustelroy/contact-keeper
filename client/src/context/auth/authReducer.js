@@ -5,7 +5,8 @@ import {
     CLEAR_CURRENT,
     UPDATE_CONTACT,
     FILTER_CONTACTS,
-    CLEAR_FILTER
+    CLEAR_FILTER,
+    CLEAR_ERRORS
 } from '../types';
 
 export default (state, action) => {
@@ -27,6 +28,12 @@ export default (state, action) => {
                 loading: false,
                 user: null,
                 error: action.payload
+            }
+        case CLEAR_ERRORS:
+            localStorage.removeItem('token');
+            return {
+                ...state,
+                error: null
             }
         default:
             return state;
