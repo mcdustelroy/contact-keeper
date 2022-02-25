@@ -1,41 +1,56 @@
+/* eslint-disable import/no-anonymous-default-export */
 import {
-    REGISTER_SUCCESS,
-    REGISTER_FAIL,
-    SET_CURRENT,
-    CLEAR_CURRENT,
-    UPDATE_CONTACT,
-    FILTER_CONTACTS,
-    CLEAR_FILTER,
-    CLEAR_ERRORS
-} from '../types';
+	REGISTER_SUCCESS,
+	REGISTER_FAIL,
+	SET_CURRENT,
+	CLEAR_CURRENT,
+	UPDATE_CONTACT,
+	FILTER_CONTACTS,
+	CLEAR_FILTER,
+	CLEAR_ERRORS,
+	USER_LOADED,
+	AUTH_ERROR,
+	LOGIN_SUCCESS,
+	LOGIN_FAIL,
+} from "../types";
 
 export default (state, action) => {
-    switch (action.type) {
-        case REGISTER_SUCCESS:
-            localStorage.setItem('token', action.payload.token);
-            return {
-                ...state,
-                ...action.payload,
-                isAthenticated: true,
-                loading: false,
-            }
-        case REGISTER_FAIL:
-            localStorage.removeItem('token');
-            return {
-                ...state,
-                token: null,
-                isAuthenticated: false,
-                loading: false,
-                user: null,
-                error: action.payload
-            }
-        case CLEAR_ERRORS:
-            localStorage.removeItem('token');
-            return {
-                ...state,
-                error: null
-            }
-        default:
-            return state;
-    }
-}
+	switch (action.type) {
+		case USER_LOADED:
+			return {
+				...state,
+				isAuthenticated: true,
+				loading: false,
+				user: action.payload,
+			};
+		case REGISTER_SUCCESS:
+		case LOGIN_SUCCESS:
+			localStorage.setItem("token", action.payload.token);
+			return {
+				...state,
+				...action.payload,
+				isAuthenticated: true,
+				loading: false,
+			};
+		case REGISTER_FAIL:
+		case AUTH_ERROR:
+		case LOGIN_FAIL:
+			localStorage.removeItem("token");
+			return {
+				...state,
+				token: null,
+				isAuthenticated: false,
+				loading: false,
+				user: null,
+				error: action.payload,
+			};
+		case CLEAR_ERRORS:
+			localStorage.removeItem("token");
+			return {
+				...state,
+				error: null,
+			};
+		default:
+			return state;
+	}
+};

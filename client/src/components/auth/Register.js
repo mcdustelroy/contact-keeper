@@ -1,20 +1,27 @@
 import React, { useState, useContext, useEffect } from "react";
-import AlertContext from '../../context/alert/alertContext';
+import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-	const alertContext = useContext(AlertContext)
-	const authContext = useContext(AuthContext)
+	const alertContext = useContext(AlertContext);
+	const authContext = useContext(AuthContext);
+	const navigate = useNavigate();
 
-	const { setAlert } = alertContext
-	const { register, error, clearErrors } = authContext
+	const { setAlert } = alertContext;
+	const { register, error, clearErrors, isAuthenticated } = authContext;
 
 	useEffect(() => {
-		if(error === 'user already exists') {
-			setAlert(error, 'danger');
+		if (isAuthenticated) {
+			navigate("/");
+		}
+
+		if (error === "user already exists") {
+			setAlert(error, "danger");
 			clearErrors();
 		}
-	}, [error])
+		// eslint-disable-next-line
+	}, [error, isAuthenticated, navigate]);
 
 	const [user, setUser] = useState({
 		name: "",
@@ -28,18 +35,17 @@ const Register = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		if(name === '' || email === '' || password === '' ) {
-			setAlert('Please enter all fields', 'danger')
-		} else if(password !== password2) {
-			setAlert('Passwords must match', 'danger')
+		if (name === "" || email === "" || password === "") {
+			setAlert("Please enter all fields", "danger");
+		} else if (password !== password2) {
+			setAlert("Passwords must match", "danger");
 		} else {
 			register({
 				name,
 				email,
-				password
+				password,
 			});
 		}
-
 	};
 
 	return (
@@ -63,7 +69,7 @@ const Register = () => {
 						name="password"
 						value={password}
 						onChange={onChange}
-						minLength='6'
+						minLength="6"
 					/>
 				</div>
 				<div className="form-group">
@@ -73,7 +79,7 @@ const Register = () => {
 						name="password2"
 						value={password2}
 						onChange={onChange}
-						minLength='6'
+						minLength="6"
 					/>
 				</div>
 				<input type="submit" value="Register" className="btn btn-primary btn-block" />
