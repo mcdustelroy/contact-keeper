@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import PrivateRoute from "./components/routing/PrivateRoute";
 
 import Navbar from "./components/layout/Navbar";
 import Alerts from "./components/layout/Alerts";
@@ -32,7 +33,8 @@ const App = () => {
               <div className="container">
                 <Alerts />
                 <Routes>
-                  <Route exact path="/" element={<Home />} />
+                  <Route exact path="/" element={<PrivateRoute redirect="/login" element={<Home />} />} />
+
                   <Route exact path="/about" element={<About />} />
                   <Route exact path="/practice" element={<Practice />} />
                   <Route exact path="/register" element={<Register />} />
