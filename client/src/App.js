@@ -34,7 +34,6 @@ const App = () => {
                 <Alerts />
                 <Routes>
                   <Route exact path="/" element={<PrivateRoute redirect="/login" element={<Home />} />} />
-
                   <Route exact path="/about" element={<About />} />
                   <Route exact path="/practice" element={<Practice />} />
                   <Route exact path="/register" element={<Register />} />
