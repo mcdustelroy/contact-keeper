@@ -64,8 +64,29 @@ const Login = () => {
 				</div>
 				<input type="submit" value="Login" className="btn btn-primary btn-block" />
 			</form>
+			{/* <Counter /> */}
 		</div>
 	);
 };
 
 export default Login;
+
+class Counter extends React.Component {
+    state = {
+        count : 1,
+    }
+
+	formatCount() {
+        const {count} = this.state;
+        return count === 0 ? 'Zero' : count;
+    }
+
+    render() {
+        return (
+        <div>
+            <span>{this.formatCount()}</span>
+        </div>
+        );
+    }
+}
+

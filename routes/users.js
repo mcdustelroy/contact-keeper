@@ -41,6 +41,8 @@ router.post('/', [
 
         await user.save();
 
+
+        // login
         const payload = {
             user: {
                 id: user.id

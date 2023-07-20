@@ -23,7 +23,7 @@ router.get('/', auth, async (req, res) => {
 
 
 // @route   POST api/auth
-// @desc    auth user and get token
+// @desc    Login
 // @access  Public
 router.post(
     '/', 
@@ -52,6 +52,8 @@ router.post(
                 return res.status(400).json({ msg: 'Invalid credentials' })
             }
 
+
+            // login
             const payload = {
                 user: {
                     id: user.id
